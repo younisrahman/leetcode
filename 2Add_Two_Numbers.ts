@@ -8,18 +8,26 @@ class ListNode {
   }
 }
 
-let linkdex_list = new ListNode(
-  1,
-  new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
-);
+let linkdex_list = new ListNode(2, new ListNode(4, new ListNode(3)));
+let linkdex_list2 = new ListNode(5, new ListNode(6, new ListNode(4)));
 
+var size = 0;
+var size2 = 0;
 while (linkdex_list) {
-  console.log('====================================');
-  console.log(linkdex_list.val);
-  console.log('====================================');
+  size++;
   if (linkdex_list.next) {
     linkdex_list = linkdex_list.next;
   } else {
     break;
   }
 }
+while (linkdex_list2) {
+  size2++;
+  if (linkdex_list2.next) {
+    linkdex_list2 = linkdex_list2.next;
+  } else {
+    break;
+  }
+}
+
+let loopLength: number = Math.max(size, size2);
