@@ -8,15 +8,15 @@
 using namespace std;
 bool containsNearbyDuplicate(vector<int> &nums, int k)
 {
-    for (int i = 0; i < nums.size() - 1; i++)
+    unordered_map<int, int> map;
+    for (int i = 0; i < nums.size(); i++)
     {
-        for (int j = i + 1; j < nums.size(); j++)
+        if (map.count(nums[i]))
         {
-            if (nums[i] == nums[j] && (abs(i - j) <= k))
-            {
+            if (abs(map[nums[i]] - i) <= k)
                 return true;
-            }
         }
+        map[nums[i]] = i;
     }
     return false;
 }
