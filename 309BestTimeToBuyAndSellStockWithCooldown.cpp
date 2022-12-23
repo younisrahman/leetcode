@@ -5,34 +5,50 @@
     cin.tie(0);                       \
     cout.tie(0);
 using namespace std;
-int maxProfit(int i, int buyOrSell, vector<int> &prices)
+int maximumProfit(int i, int buyOrSell, vector<int> &prices, unordered_map<string, int> m)
 {
     if (i >= prices.size())
-
-        return 9;
-    int x = 0;
-    if (buyOrSell == 0)
     {
-        int buy = maxProfit(i + 1, 1, prices) - prices[i];
+        return 0;
+    }
+    int x = 0;
+    string key = to_string(i) + "key" + to_string(buyOrSell);
 
-        int noBuy = maxProfit(i + 1, 0, prices);
-        x = max(buy, noBuy);
+    if (m.find(key) == m.end())
+    {
+        if (buyOrSell == 0)
+        {
+            int buy = maximumProfit(i + 1, 1, prices, m) - prices[i];
+            int noBuy = maximumProfit(i + 1, 0, prices, m);
+            x = max(buy, noBuy);
+        }
+        else
+        {
+            int sell = maximumProfit(i + 2, 0, prices, m) + prices[i];
+            int noSell = maximumProfit(i + 1, 1, prices, m);
+            x = max(sell, noSell);
+        }
     }
     else
     {
-        int sell = maxProfit(i + 2, 0, prices) + prices[i];
-        int noSell = maxProfit(i + 1, 1, prices);
-        x = max(sell, noSell);
+        return m[key];
     }
 
+    m.insert({key, x});
+
     return x;
+}
+int maxProfit(vector<int> &prices)
+{
+    unordered_map<string, int> m;
+    return maximumProfit(0, 0, prices, m);
 }
 
 int main()
 {
     FastIO;
     vector<int> vector = {1, 2, 4};
-    std::cout << maxProfit(0, 0, vector) << std::endl;
+    std::cout << maxProfit(vector) << std::endl;
 
     return 0;
 }
