@@ -40,8 +40,19 @@ int maximumProfit(int i, int buyOrSell, vector<int> &prices, unordered_map<strin
 }
 int maxProfit(vector<int> &prices)
 {
-    unordered_map<string, int> m;
-    return maximumProfit(0, 0, prices, m);
+    int n = prices.size();
+    if (n == 0)
+        return 0;
+    vector<int> buy(n, 0);
+    vector<int> sel(n, 0);
+    vector<int> col(n, 0);
+    for (int i = 1; i < n; i++)
+    {
+        buy[i] = max(col[i - 1], buy[i - 1]);
+        sel[i] = max(buy[i - 1] + (prices[i] - prices[i - 1]), sel[i - 1] + (prices[i] - prices[i - 1]));
+        col[i] = max(sel[i - 1], col[i - 1]);
+    }
+    return max(buy[n - 1], max(sel[n - 1], col[n - 1]));
 }
 
 int main()
