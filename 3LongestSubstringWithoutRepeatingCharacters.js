@@ -1,24 +1,24 @@
 
 const str = "pwwkew"
 var lengthOfLongestSubstring = function(s) {
-    let sub = []
-    let ans = 0
-    let subAns = 0
-    
-    for(a of s){
-        
-        if(!sub.includes(a)){
-            sub.push(a)
-            subAns++
+    const set = new Set()
+    let maxLength=0
+
+    let left=0
+    let right =0
+    while(right < s.length){
+        if(set.has(s[right])){
+            set.delete(s[left])
+            left++
         }
         else{
-            sub = [a]
-            subAns= 1
+            set.add(s[right])
+            right++
+            maxLength = Math.max(maxLength, set.size)
         }
-        ans = Math.max(subAns, ans)
     }
 
-    return ans
+    return maxLength
 };
 
 
