@@ -12,8 +12,8 @@ var lengthOfLongestSubstring = function(s) {
             subAns++
         }
         else{
-            sub = []
-            subAns= 0
+            sub = [a]
+            subAns= 1
         }
         ans = Math.max(subAns, ans)
     }
